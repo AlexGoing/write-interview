@@ -37,18 +37,28 @@ function myis(a, b) {
 	}
 }
 // object.assign
-function isassign(target, source) {
-	if(typeof target === null || typeof target === undefined) throw new Error();
-	let res = Object(source);
-	for(let i = 0; i < source.length; i++) {
-		let src = source[i];
-		let keys = [...Object.keys(src), ...Object.getOwnPropertySymbols(src)];
-		for(let k of keys) {
-			res[k] === src[k];
+if (typeof Object.myAssign !== 'function') {
+	Object.defineProperty(Object, 'myAssign', {
+	  value: function(target) {
+		if (target == null) {
+		  throw new Error('Can\'t convert undefined or null to obj')
 		}
-	}
-	return res
-}
+		var to = Object(target)
+		for (var index = 1; index < arguments.length; i+=1) {
+		  var source = arguments[index]
+		  if (source != null) {
+			for (var key in source) {
+			  if (Object.prototype.hasOwnProperty.call(source, key)) {
+				to[key] = source[key]
+			  }
+			}
+		  }
+		}
+	  },
+	  writable: true,
+	  configurable: true
+	})
+ }
 // Object.create()方法创建一个新对象，使用现有的对象来提供新创建的对象的__proto__。
 function create(proto) {
     function F() {}
