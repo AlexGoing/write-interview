@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>轮播</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .main {
+        width: 700px;
+        height: 400px;
+        margin: 50px auto;
+        position: relative;
+        overflow: hidden;
+      }
+      .rolling {
+        position: absolute;
+        top: 0;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        transition: 0.5s ease;
+      }
+      .rolling img {
+        width: 100%;
+        height: 100%;
+      }
+
+      .on {
+        position: absolute;
+        bottom: 5%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+      }
+      .on li {
+        cursor: pointer;
+        list-style: none;
+        width: 15px;
+        height: 15px;
+        margin: 5px;
+        border-radius: 50%;
+        background-color: #fff;
+        transition: 0.3s ease;
+      }
+      .on li:hover {
+        background-color: #3498db;
+      }
+      .on li.active {
+        background-color: #3498db;
+      }
+      .main span {
+        user-select: none;
+        cursor: pointer;
+        display: block;
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+        font-size: 20px;
+        background-color: rgba(0, 0, 0, 0.6);
+        color: #fff;
+      }
+      .left {
+        top: 50%;
+        left: 0;
+      }
+      .right {
+        top: 50%;
+        right: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <div class="rolling">
+        <img src="../images/banner01.jpg" alt="" />
+        <img src="../images/banner02.jpg" alt="" />
+        <img src="../images/banner03.jpg" alt="" />
+      </div>
+      <ul class="on">
+        <li class="active"></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <span class="left"><</span>
+      <span class="right">></span>
+    </div>
+
+    <script>
+      // 获取图片列表
+      const rolling = document.querySelector(".rolling");
+      // 获取li列表
+      const lis = document.querySelectorAll(".on li");
+      // 获取按钮
+      const left = document.querySelector(".left");
+      const right = document.querySelector(".right");
+      // 克隆第一张图片,这张图片就是无缝衔接的关键
+      let cloneImg = rolling.firstElementChild.cloneNode();
+      // 添加到图片列表的最后
+      rolling.appendChild(cloneImg);
+
+      let index = 0; //图片的坐标
+
+      let lock = true; //设置节流
+
+      let timer = null; //设置定时器
+
+      // 右击事件
+      right.onclick = () => {
+        // 判断锁的状态,如果是关闭就直接return
+        if (!lock) return;
+        // 移动位置
+        index++;
+        // 给下面去掉动画重新加上动画
+        rolling.style.transition = ".5s ease";
+        // 当坐标等于最后一张图片时
+        if (index === rolling.children.length - 1) {
+          // 迅速切换到第一张图片
+          setTimeout(() => {
+            rolling.style.left = 0;
+            index = 0;
+            changeLi(index);
+            // 取消过渡动画,无缝衔接第一张图片
+            rolling.style.transition = "none";
+          }, 500);
+        }
+        rolling.style.left = `${-index * 700}px`;
+        if (index < rolling.children.length - 1) {
+          changeLi(index);
+        }
+        // 关锁
+        lock = false;
+        // 500毫秒后开锁
+        setTimeout(() => {
+          lock = true;
+        }, 500);
+      };
+
+      // 改变li的样式
+      function changeLi(index) {
+        lis.forEach((li) => {
+          if (li.classList.contains("active")) {
+            li.classList.remove("active");
+          }
+        });
+        lis[index].classList.add("active");
+      }
+
+      // 左击事件
+      left.onclick = () => {
+        // 判断锁的状态,如果是关闭就直接return
+        if (!lock) return;
+        // 如果现在是第一张图片时
+        if (index === 0) {
+          // 切换到克隆的图片
+          rolling.style.left = `${-(rolling.children.length - 1) * 700}px`;
+
+          // 取消动画,瞬间过去
+          rolling.style.transition = "none";
+          setTimeout(() => {
+            // 真正的最后一张图
+            index = rolling.children.length - 2;
+            changeLi(index);
+            // 加上动画
+            rolling.style.transition = ".5s ease";
+            rolling.style.left = `${-index * 700}px`;
+          });
+        } else {
+          index--;
+          rolling.style.left = `${-index * 700}px`;
+          changeLi(index);
+        }
+        // 关锁;
+        lock = false;
+        // 500毫秒后开锁
+        setTimeout(() => {
+          lock = true;
+        }, 500);
+      };
+
+      // li点击事件
+      lis.forEach((li, idx) => {
+        li.onclick = () => {
+          index = idx;
+          rolling.style.left = `${-index * 700}px`;
+          changeLi(index);
+        };
+      });
+
+      // 轮播方法
+      function auto() {
+        // left.click();
+        right.click();
+      }
+      // 定时轮播
+      timer = setInterval(() => {
+        auto();
+      }, 3000);
+
+      // 监听鼠标移入和移出事件
+      rolling.onmouseover = () => {
+        console.log("移入");
+        clearInterval(timer);
+      };
+
+      rolling.onmouseout = () => {
+        console.log("移出");
+        timer = setInterval(() => {
+          auto();
+        }, 3000);
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,143 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.content {
+    width: 100vw;
+    height: 100vh;
+    background-color: antiquewhite;
+    overflow: hidden;
+}
+
+.slide-box {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: darkblue;
+}
+
+.slide-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 60px;
+    color: #fff;
+}
+
+.slide-btn-left {
+    left: 20px;
+}
+
+.slide-btn-left::after {
+    content: "\276E";
+}
+
+.slide-btn-right {
+    right: 20px;
+}
+
+.slide-btn-right::after {
+    content: "\276F";
+}
+
+.pagination-box {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination-box>span {
+    margin: 0 10%;
+    flex: none;
+    width: 10px;
+    height: 10px;
+    background-color: rgb(224, 224, 224);
+    border-radius: 50%;
+}
+
+.pagination-box>span.chose {
+    width: 15px;
+    height: 15px;
+    background-color: #fff;
+}
+
+.banner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.banner-item {
+    flex: none;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: cover;
+    padding: 0 100px;
+    box-sizing: border-box;
+}
+
+.bi-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 10px;
+}
+
+.bi-content>h1 {
+    font-size: inherit;
+    margin-bottom: 5em;
+    text-align: center;
+}
+
+.bi-content>h1>span {
+    font-size: 6.4em;
+}
+
+.bi-content>button {
+    font-size: inherit;
+    background: none;
+    border: none;
+    width: 14em;
+    height: 4em;
+    border: 0.2em solid #fff;
+    color: #fff;
+    border-radius: 1em;
+}
+
+.bi-content>button>span {
+    font-size: 1.6em;
+}
+
+.bi-content>button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+@media screen and (max-width: 680px) {
+    .slide-box {
+        width: 100%;
+        height: 360px;
+    }
+
+    .bi-content {
+        font-size: 8px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .bi-content {
+        font-size: 6px;
+    }
+    
+}

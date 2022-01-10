@@ -1,0 +1,54 @@
+<div class="dropzone">
+  <div id="draggable" draggable="true">This div is draggable</div>
+</div>
+<div class="dropzone"></div>
+<div class="dropzone"></div>
+<div class="dropzone"></div>
+<div class="nnn"></div>
+<div class="trangle"></div>
+<style>
+  .trangle {
+    width: 0;
+    height: 0;
+    border-top: 200px solid lightcyan;
+    border-left: 200px solid transparent;
+    border-right: 200px solid transparent;
+    border-bottom: 200px solid transparent;
+    /* background-color: lightcoral; */
+  }
+  #draggable {
+    width: 200px;
+    height: 20px;
+    text-align: center;
+    background: white;
+  }
+
+  .dropzone {
+    width: 200px;
+    height: 20px;
+    background: blueviolet;
+    margin-bottom: 10px;
+    padding: 10px;
+  }
+  .nnn {
+    width: 100px;
+    height: 100px;
+    outline: 1px solid black;
+  }
+</style>
+
+<script>
+  var dragged = null;
+  document.addEventListener("dragstart", function (e) {
+    dragged = e.target;
+  });
+  document.addEventListener("dragover", function (e) {
+    e.preventDefault();
+  });
+  document.addEventListener("drop", function (e) {
+    if (e.target.className === "dropzone") {
+      dragged.parentNode.removeChild(dragged);
+      e.target.append(dragged);
+    }
+  });
+</script>

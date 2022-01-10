@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>居中</title>
+  </head>
+
+  <body>
+    <style>
+      html,
+      body {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+      }
+
+      body {
+        display: flex;
+        align-items: center;
+      }
+
+      .A {
+        flex: 1;
+        margin: 0 10px;
+        padding-top: 50%;
+        position: relative;
+        /* background: #999; */
+        outline: 1px solid blue;
+      }
+
+      .A::after {
+        content: "A";
+        display: block;
+        font-size: 20px;
+        position: absolute;
+        /* 样式1 */
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        /* 样式2 */
+        /* top: 0%;
+            left: 0%;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center; */
+      }
+    </style>
+    <div class="A"></div>
+  </body>
+</html>

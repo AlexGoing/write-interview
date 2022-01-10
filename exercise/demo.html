@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      //   function f(matrix) {
+      //     const result = [];
+      //     const len = matrix.length;
+      //     function dfs(res, curr) {
+      //       if (res.length === len) {
+      //         result.push(res.join(""));
+      //         return;
+      //       }
+      //       for (let i = 0; i < matrix[curr].length; i++) {
+      //         res.push(matrix[curr][i]);
+      //         dfs(res, curr + 1);
+      //         res.pop();
+      //       }
+      //     }
+      //     dfs([], 0);
+      //     return result;
+      //   }
+
+      //   function f2(matrix) {
+      //     const result = [];
+      //     let length = matrix.length;
+
+      //     function dfs(res, current) {
+      //       if (current === length) {
+      //         result.push(res.join(""));
+      //         return;
+      //       }
+      //       for (let i = 0; i < matrix[current].length; i += 1) {
+      //         res.push(matrix[current][i]);
+      //         dfs(res, current + 1);
+      //         res.pop();
+      //       }
+      //     }
+      //     dfs([], 0);
+      //     return result;
+      //   }
+      //   console.log(
+      //     f2([
+      //       ["a", "b"],
+      //       ["n", "m"],
+      //       ["0", "1"],
+      //     ])
+      //   );
+
+      class U {
+        constructor() {
+          this.promise = Promise.resolve();
+        }
+
+        console(val) {
+          this.promise = this.promise.then(() => {
+            console.log(val);
+          });
+          return this;
+        }
+
+        setTimeout(wait) {
+          this.promise = this.promise.then(() => {
+            return new Promise((resolve) => {
+              setTimeout(() => {
+                resolve();
+              }, wait);
+            });
+          });
+          return this;
+        }
+      }
+
+      class U2 {
+        constructor() {
+          this.promise = Promise.resolve();
+        }
+        console(val) {
+          this.promise = this.promise.then(() => {
+            console.log(val);
+          });
+          return this;
+        }
+        setTimeout(wait) {
+          this.promise = this.promise.then(() => {
+            return new Promise((res) => {
+              setTimeout(() => {
+                res();
+              }, wait);
+            });
+          });
+          return this;
+        }
+      }
+      const u = new U2();
+      u.console("breakfast")
+        .setTimeout(3000)
+        .console("lunch")
+        .setTimeout(3000)
+        .console("dinner");
+    </script>
+  </body>
+</html>

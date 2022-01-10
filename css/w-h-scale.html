@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      div {
+        /* way1 */
+        /* width: 50%;
+        height: 25vw;
+        outline: 1px solid lightblue; */
+        /* way2 */
+        /* width: 30%;
+        height: 0;
+        padding-bottom: 30%;
+        background: red; */
+      }
+
+      /* w3 */
+      .square {
+        width: 30%;
+        /* overflow: hidden; */
+        background: red;
+        /* 这样max-height就生效了 */
+        max-height: 100px;
+      }
+      .square:after {
+        content: "";
+        display: block;
+        /* margin-top: 100%; */
+        padding-top: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="square"></div>
+  </body>
+</html>
